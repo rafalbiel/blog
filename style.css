@@ -1,5 +1,28 @@
-body{
-    background-color:black;
-    color: white;
-    font-size: 36px;
+body {
+	background-color: black;
+	color: white;
+	font-size: 36px;
+}
+div {
+	border: solid 2px;
+}
+
+#post-counter{
+    background-color: black;
+    display: block;
+    position: fixed;
+    top:0;
+    width: 100%;
+}
+
+#stopka {
+    width: 100%;
+    display: block;
+    position: fixed;
+	left: 0;
+	bottom: 0;
+    background-color: black;
+}
+#root{
+    position: relative;
 }
