@@ -7,20 +7,19 @@ div {
 	border: solid 2px;
 }
 
-#post-counter {
-	background-color: black;
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-}
-
 #stopka {
 	width: 100%;
 	position: fixed;
 	left: 0;
-	bottom: 0;
+	top: 0;
 	background-color: black;
+}
+#post-counter {
+	background-color: black;
+	position: fixed;
+	right: 0;
+	top: 20%;
+	width: 100%;
 }
 #root {
 	position: relative;
@@ -28,5 +27,5 @@ div {
 #notification {
 	position: fixed;
 	top: 50%;
-	right: 10%;
+	right: 20%;
 }

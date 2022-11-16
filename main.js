@@ -9,9 +9,9 @@ function counterRefresh() {
 	postCounter.innerHTML = `ilość postów: ${posts.length}`;
 }
 
-function notification() {
+function notification(newPostTitle) {
 	const divNotificator = document.querySelector("#notification");
-	divNotificator.innerHTML = "dodano post";
+	divNotificator.innerHTML = `nowy post o tytule ${newPostTitle}`;
 	setTimeout(() => (divNotificator.innerHTML = ""), 3000);
 }
 
@@ -80,18 +80,17 @@ function renderContent() {
 }
 
 function addPost(event) {
-	//  event.preventDefault();
-
 	const titleInput = document.querySelector("#post-title");
 	const newPostTitle = titleInput.value;
 
 	const bodyTextArea = document.querySelector("#new-post-body");
 	const newPostBody = bodyTextArea.value;
 
-	const lastPost = posts[posts.length - 1];
-	const newPostId = lastPost.id + 1;
-
-	posts.push({
+	const lastPost = posts.length;
+	const newPostId = lastPost + 1;
+	console.log(newPostId);
+	
+	posts.unshift({
 		id: newPostId,
 		title: newPostTitle,
 		body: newPostBody,
@@ -99,7 +98,7 @@ function addPost(event) {
 	});
 
 	renderContent();
-	notification();
+	notification(newPostTitle);
 }
 
 renderContent();
