@@ -7,22 +7,26 @@ div {
 	border: solid 2px;
 }
 
-#post-counter{
-    background-color: black;
-    display: block;
-    position: fixed;
-    top:0;
-    width: 100%;
+#post-counter {
+	background-color: black;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
 }
 
 #stopka {
-    width: 100%;
-    display: block;
-    position: fixed;
+	width: 100%;
+	position: fixed;
 	left: 0;
 	bottom: 0;
-    background-color: black;
+	background-color: black;
 }
-#root{
-    position: relative;
+#root {
+	position: relative;
+}
+#notification {
+	position: fixed;
+	top: 50%;
+	right: 10%;
 }

@@ -4,13 +4,16 @@ let posts = [
 	{ id: 3, title: "test3", body: "jakiś tekst w poscie 3", likesCount: 0 },
 ];
 
-const postCounter = document.querySelector("#post-counter");
-postCounter.innerHTML = `ilość postów: ${posts.length}`;
-console.log(postCounter);
+function counterRefresh() {
+	const postCounter = document.querySelector("#post-counter");
+	postCounter.innerHTML = `ilość postów: ${posts.length}`;
+}
 
-
-// jak odświeżać licznik postów
-
+function notification() {
+	const divNotificator = document.querySelector("#notification");
+	divNotificator.innerHTML = "dodano post";
+	setTimeout(() => (divNotificator.innerHTML = ""), 3000);
+}
 
 const rootElement = document.querySelector("#root");
 
@@ -57,8 +60,8 @@ function renderContent() {
 		singlePost.appendChild(deletePostButton);
 		singlePost.appendChild(addFiveLikesButton);
 		singlePost.appendChild(substractTenLikesButton);
+		counterRefresh();
 
-		
 		deletePostButton.onclick = () => {
 			posts.splice(index, 1);
 			renderContent();
@@ -68,7 +71,7 @@ function renderContent() {
 			posts[index].likesCount += 5;
 			renderContent();
 		};
-		
+
 		substractTenLikesButton.onclick = () => {
 			posts[index].likesCount -= 10;
 			renderContent();
@@ -81,27 +84,22 @@ function addPost(event) {
 
 	const titleInput = document.querySelector("#post-title");
 	const newPostTitle = titleInput.value;
-	
+
 	const bodyTextArea = document.querySelector("#new-post-body");
 	const newPostBody = bodyTextArea.value;
-	
+
 	const lastPost = posts[posts.length - 1];
 	const newPostId = lastPost.id + 1;
-	
+
 	posts.push({
 		id: newPostId,
 		title: newPostTitle,
 		body: newPostBody,
 		likesCount: 0,
 	});
-	
-	jak skrolować content, żeby ostani post był widoczny
-	// window.scroll({
-	// 	top: 50,
-	// 	left: 0,
-	// 	behavior: "smooth",
-	// });
+
 	renderContent();
+	notification();
 }
 
 renderContent();
