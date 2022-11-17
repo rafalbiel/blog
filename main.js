@@ -101,24 +101,22 @@ function addPost(event) {
 	notification(newPostTitle);
 }
 
-
 async function suckFromOutside(url) {
 	const response = await fetch(url);
 	const outsideData = await response.json();
 
 	outsideData.forEach((el) => {
-		
 		posts.push({
-			id:el.id,
-			title:el.title,
-			body:el.body,
-			likesCount:0
-		})
+			id: el.id,
+			title: el.title,
+			body: el.body,
+			likesCount: 0,
+		});
 	});
-	
+
 	renderContent();
-
-
+	const outsideDataButton = document.querySelector("#otside-data");
+	outsideDataButton.disabled = true;
 }
 
 renderContent();
