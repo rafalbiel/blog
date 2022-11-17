@@ -89,7 +89,7 @@ function addPost(event) {
 	const lastPost = posts.length;
 	const newPostId = lastPost + 1;
 	console.log(newPostId);
-	
+
 	posts.push({
 		id: newPostId,
 		title: newPostTitle,
@@ -101,24 +101,24 @@ function addPost(event) {
 	notification(newPostTitle);
 }
 
+
 async function suckFromOutside(url) {
 	const response = await fetch(url);
-	const json = await response.json();
-  const convertedData = json.forEach((el) => {
-	  
-  
-		  delete el.userId;
-		  el.likesCount = 0; 
-		  console.log(el)
-	  
-	  
-	});
+	const outsideData = await response.json();
 
+	outsideData.forEach((el) => {
+		
+		posts.push({
+			id:el.id,
+			title:el.title,
+			body:el.body,
+			likesCount:0
+		})
+	});
+	
+	renderContent();
 
 
 }
-
-
-
 
 renderContent();
