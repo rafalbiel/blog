@@ -90,7 +90,7 @@ function addPost(event) {
 	const newPostId = lastPost + 1;
 	console.log(newPostId);
 	
-	posts.unshift({
+	posts.push({
 		id: newPostId,
 		title: newPostTitle,
 		body: newPostBody,
@@ -100,5 +100,25 @@ function addPost(event) {
 	renderContent();
 	notification(newPostTitle);
 }
+
+async function suckFromOutside(url) {
+	const response = await fetch(url);
+	const json = await response.json();
+  const convertedData = json.forEach((el) => {
+	  
+  
+		  delete el.userId;
+		  el.likesCount = 0; 
+		  console.log(el)
+	  
+	  
+	});
+
+
+
+}
+
+
+
 
 renderContent();
