@@ -1,3 +1,12 @@
+let user = [
+	{ id: 1, nickname: "belos", email: "belos25@poczta.fm", hasło: "lamer" },
+	{ id: 2, nickname: "user2", email: "user2@gmail.com", hasło: "tezLamer" },
+	{ id: 3, nickname: "user3", email: "user3@gmail.com", hasło: "strasznyLamer" },
+];
+
+const isUserLogged = false;
+
+
 let posts = [
 	{ id: 1, title: "test1", body: "jakiś tekst w poscie 1", likesCount: 0 },
 	{ id: 2, title: "test2", body: "jakiś tekst w poscie 2", likesCount: 0 },
@@ -11,7 +20,7 @@ function counterRefresh() {
 
 function notification(newPostTitle) {
 	const divNotificator = document.querySelector("#notification");
-	divNotificator.innerHTML = `nowy post o tytule ${newPostTitle}`;
+	divNotificator.innerHTML = `dodano nowy post o tytule ${newPostTitle}`;
 	setTimeout(() => (divNotificator.innerHTML = ""), 3000);
 }
 
@@ -107,7 +116,7 @@ async function suckFromOutside(url) {
 
 	outsideData.forEach((el) => {
 		posts.push({
-			id: el.id,
+			id: posts.length + 1,
 			title: el.title,
 			body: el.body,
 			likesCount: 0,

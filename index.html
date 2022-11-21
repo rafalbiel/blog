@@ -10,49 +10,38 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0"
 		/>
-
-		<title>Blog</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-			crossorigin="anonymous"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-		/>
+		<title>start</title>
 		<link
 			rel="stylesheet"
 			href="style.css"
 		/>
 	</head>
 	<body>
-		<div id="root"></div>
-		<!-- <div id="newPost">
-		 <form action="submit"> -->
-
-		<div id="stopka">
+		<div>
+			<label for="email">adres email</label>
 			<input
-				id="post-title"
 				type="text"
-				placeholder="tytuł"
+				id="email"
+				name="email"
 			/>
-			<button onclick="addPost()">dodaj post</button>
-			<button id = "otside-data" onclick="suckFromOutside('https://jsonplaceholder.typicode.com/posts?userId=1')">dodaj dane z zewnątrz</button>
-			<textarea
-				name="newPostTextArea"
-				id="new-post-body"
-				cols="60"
-				rows="3"
-			></textarea>
 		</div>
-		<div id="post-counter">
-			<label id="post-counter">tekst</label>
+		<div>
+			<label for="username">hasło</label>
+			<input
+				type="password"
+				id="pass"
+				name="pass"
+			/>
 		</div>
-		<div id="notification"></div>
-		<!-- </form> -->
-		<!-- </div> -->
-		<script src="main.js"></script>
+		<input
+        onclick="loginDataLoad()"
+			type="button"
+			value="login"
+		/>
+
+		<div>
+			<a href="index-registration.html"> nie jesteś zarejestrowany ? </a>
+		</div>
+        <script src="login.js"></script>
 	</body>
 </html>
