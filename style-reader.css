@@ -14,10 +14,19 @@ div {
 	top: 0;
 	background-color: black;
 }
+
 #post-counter {
 	background-color: black;
 	position: fixed;
 	right: 0;
+	top: 20%;
+	width: 100%;
+}
+
+#currently-logged {
+	background-color: black;
+	position: fixed;
+	left: 40%;
 	top: 20%;
 	width: 100%;
 }

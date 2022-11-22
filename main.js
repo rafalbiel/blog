@@ -1,12 +1,3 @@
-let user = [
-	{ id: 1, nickname: "belos", email: "belos25@poczta.fm", hasło: "lamer" },
-	{ id: 2, nickname: "user2", email: "user2@gmail.com", hasło: "tezLamer" },
-	{ id: 3, nickname: "user3", email: "user3@gmail.com", hasło: "strasznyLamer" },
-];
-
-const isUserLogged = false;
-
-
 let posts = [
 	{ id: 1, title: "test1", body: "jakiś tekst w poscie 1", likesCount: 0 },
 	{ id: 2, title: "test2", body: "jakiś tekst w poscie 2", likesCount: 0 },
@@ -16,6 +7,14 @@ let posts = [
 function counterRefresh() {
 	const postCounter = document.querySelector("#post-counter");
 	postCounter.innerHTML = `ilość postów: ${posts.length}`;
+}
+
+function currentlyLoggedInfo() {
+	const loggedUserData = window.localStorage.getItem("currentlyLogged");
+
+	const loggedDisplayer = document.querySelector("#currently-logged");
+	console.log(loggedUserData.nickname);
+	loggedDisplayer.innerHTML = `obecnie zalogowany: ${loggedUserData}`;
 }
 
 function notification(newPostTitle) {
@@ -85,6 +84,7 @@ function renderContent() {
 			posts[index].likesCount -= 10;
 			renderContent();
 		};
+		currentlyLoggedInfo();
 	});
 }
 
