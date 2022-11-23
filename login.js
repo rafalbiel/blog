@@ -1,22 +1,25 @@
-let doesUserExist = false;
 function loginDataCheck() {
-	const emailLoginInput = document.querySelector("#email");
-	const emailLoginValue = emailLoginInput.value;
+  let doesUserExist = false;
 
-	const passLoginInput = document.querySelector("#pass");
-	const passLoginValue = passLoginInput.value;
+  const emailLoginInput = document.querySelector("#email");
+  const emailLoginValue = emailLoginInput.value;
 
-	const storedUsersList = JSON.parse(
-		window.localStorage.getItem("registratedUsersList")
-	);
+  const passLoginInput = document.querySelector("#pass");
+  const passLoginValue = passLoginInput.value;
 
-	storedUsersList.forEach((element) => {
-		if (element.email === emailLoginValue && element.pass === passLoginValue)
-			window.localStorage.setItem("currentlyLogged", JSON.stringify(element));
+  const storedUsersList = JSON.parse(
+    window.localStorage.getItem("registratedUsersList")
+  );
 
-		return (doesUserExist = true);
-	});
-	if (doesUserExist === true) {
-		window.location.replace("index-reader.html");
-	}
+  storedUsersList.forEach((element) => {
+    if (element.email === emailLoginValue && element.pass === passLoginValue) {
+      window.localStorage.setItem("currentlyLogged", JSON.stringify(element));
+      window.location.replace("index-reader.html");
+
+      return (doesUserExist = true);
+	}});
+
+
+
+ if (doesUserExist ===false ) window.alert("błędny login lub hasło");
 }
