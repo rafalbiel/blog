@@ -1,6 +1,8 @@
-const usersList = [];
+let usersList = [];
 
 function SignupLoadData() {
+	usersList = JSON.parse(window.localStorage.getItem("registratedUsersList"));
+
 	const nicknameInput = document.querySelector("#nickname");
 	const nicknameValue = nicknameInput.value;
 
@@ -27,3 +29,5 @@ function SignupLoadData() {
 		JSON.stringify(usersList)
 	);
 }
+// dopisać sprawdzanie czy nie ma już usera o takim samym nicku  
+// i wyświetlić komunikat

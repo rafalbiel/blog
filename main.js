@@ -1,27 +1,32 @@
 let posts = [
-  { id: 1, title: "test1", body: "jakiś tekst w poscie 1", likesCount: 0 },
-  { id: 2, title: "test2", body: "jakiś tekst w poscie 2", likesCount: 0 },
-  { id: 3, title: "test3", body: "jakiś tekst w poscie 3", likesCount: 0 },
+	{
+		id: 1,
+		title: "test1",
+		body: "jakiś tekst w poscie 1",
+		author: "anonymous",
+		likesCount: 0,
+	},
 ];
+function refreshPostsInLocalStorage() {
+	window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
+}
 
 function counterRefresh() {
-  const postCounter = document.querySelector("#post-counter");
-  postCounter.innerHTML = `ilość postów: ${posts.length}`;
+	const postCounter = document.querySelector("#post-counter");
+	postCounter.innerHTML = `ilość postów: ${posts.length}`;
 }
 
-function currentlyLoggedInfo() {
-  const loggedUserData = JSON.parse(
-    window.localStorage.getItem("currentlyLogged")
-  );
+const loggedUserData = JSON.parse(
+	window.localStorage.getItem("currentlyLogged")
+);
 
-  const loggedDisplayer = document.querySelector("#currently-logged");
-  loggedDisplayer.innerHTML = `obecnie zalogowany: ${loggedUserData.nickname}`;
-}
+const loggedDisplayer = document.querySelector("#currently-logged");
+loggedDisplayer.innerHTML = `zalogowany: ${loggedUserData.nickname}`;
 
 function notification(newPostTitle) {
-  const divNotificator = document.querySelector("#notification");
-  divNotificator.innerHTML = `dodano nowy post o tytule ${newPostTitle}`;
-  setTimeout(() => (divNotificator.innerHTML = ""), 3000);
+	const divNotificator = document.querySelector("#notification");
+	divNotificator.innerHTML = `dodano nowy post o tytule ${newPostTitle}`;
+	setTimeout(() => (divNotificator.innerHTML = ""), 3000);
 }
 
 const rootElement = document.querySelector("#root");
@@ -30,109 +35,123 @@ const formData = document.createElement("form");
 rootElement.appendChild(formData);
 
 function renderContent() {
-  rootElement.innerHTML = "";
+	rootElement.innerHTML = "";
 
-  const postsContainer = document.createElement("div");
-  postsContainer.id = "posts-container";
-  rootElement.appendChild(postsContainer);
+	const postsContainer = document.createElement("div");
+	postsContainer.id = "posts-container";
+	rootElement.appendChild(postsContainer);
 
-  posts.forEach((post, index) => {
-    const singlePost = document.createElement("div");
-    singlePost.id = `post-${post.id}`;
-    postsContainer.appendChild(singlePost);
+	posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
 
-    const newPostIdElement = document.createElement("p");
-    newPostIdElement.innerHTML = "post Id: " + post.id;
+	posts.forEach((post, index) => {
+		const singlePost = document.createElement("div");
+		singlePost.id = `post-${post.id}`;
+		postsContainer.appendChild(singlePost);
 
-    const newPostTitleElement = document.createElement("p");
-    newPostTitleElement.innerHTML = "post Title: " + post.title;
+		const newPostIdElement = document.createElement("p");
+		newPostIdElement.innerHTML = "post Id: " + post.id;
 
-    const newPostBodyElement = document.createElement("p");
-    newPostBodyElement.innerHTML = "post body: " + post.body;
+		const newPostTitleElement = document.createElement("p");
+		newPostTitleElement.innerHTML = "post Title: " + post.title;
 
-    const newPostLikesElement = document.createElement("p");
-    newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
+		const newPostBodyElement = document.createElement("p");
+		newPostBodyElement.innerHTML = "post body: " + post.body;
 
-    const deletePostButton = document.createElement("button");
-    deletePostButton.textContent = "usuń post";
+		const newPostAuthorElement = document.createElement("p");
+		newPostAuthorElement.innerHTML = "post author: " + post.author;
 
-    const addFiveLikesButton = document.createElement("button");
-    addFiveLikesButton.textContent = "Likes +5";
+		const newPostLikesElement = document.createElement("p");
+		newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
 
-    const substractTenLikesButton = document.createElement("button");
-    substractTenLikesButton.textContent = "Likes -10";
+		const deletePostButton = document.createElement("button");
+		deletePostButton.textContent = "usuń post";
 
-    singlePost.appendChild(newPostIdElement);
-    singlePost.appendChild(newPostTitleElement);
-    singlePost.appendChild(newPostBodyElement);
-    singlePost.appendChild(newPostLikesElement);
-    singlePost.appendChild(deletePostButton);
-    singlePost.appendChild(addFiveLikesButton);
-    singlePost.appendChild(substractTenLikesButton);
-    counterRefresh();
+		const addFiveLikesButton = document.createElement("button");
+		addFiveLikesButton.textContent = "Likes +5";
 
-    deletePostButton.onclick = () => {
-      posts.splice(index, 1);
-      renderContent();
-    };
+		const substractTenLikesButton = document.createElement("button");
+		substractTenLikesButton.textContent = "Likes -10";
 
-    addFiveLikesButton.onclick = () => {
-      posts[index].likesCount += 5;
-      renderContent();
-    };
+		singlePost.appendChild(newPostIdElement);
+		singlePost.appendChild(newPostTitleElement);
+		singlePost.appendChild(newPostBodyElement);
+		singlePost.appendChild(newPostAuthorElement);
+		singlePost.appendChild(newPostLikesElement);
+		singlePost.appendChild(deletePostButton);
+		singlePost.appendChild(addFiveLikesButton);
+		singlePost.appendChild(substractTenLikesButton);
+		counterRefresh();
 
-    substractTenLikesButton.onclick = () => {
-      posts[index].likesCount -= 10;
-      renderContent();
-    };
-    currentlyLoggedInfo();
-  });
+		deletePostButton.onclick = () => {
+			posts.splice(index, 1);
+			refreshPostsInLocalStorage();
+			renderContent();
+		};
+
+		addFiveLikesButton.onclick = () => {
+			posts[index].likesCount += 5;
+			refreshPostsInLocalStorage();
+			renderContent();
+		};
+
+		substractTenLikesButton.onclick = () => {
+			posts[index].likesCount -= 10;
+			refreshPostsInLocalStorage();
+			renderContent();
+		};
+	});
 }
 
 function addPost(event) {
-  const titleInput = document.querySelector("#post-title");
-  const newPostTitle = titleInput.value;
+	const titleInput = document.querySelector("#post-title");
+	const newPostTitle = titleInput.value;
 
-  const bodyTextArea = document.querySelector("#new-post-body");
-  const newPostBody = bodyTextArea.value;
+	const bodyTextArea = document.querySelector("#new-post-body");
+	const newPostBody = bodyTextArea.value;
 
-  const lastPost = posts.length;
-  const newPostId = lastPost + 1;
-  console.log(newPostId);
+	const lastPost = posts.length;
+	const newPostId = lastPost + 1;
+	console.log(newPostId);
 
-  posts.push({
-    id: newPostId,
-    title: newPostTitle,
-    body: newPostBody,
-    likesCount: 0,
-  });
+	posts.push({
+		id: newPostId,
+		title: newPostTitle,
+		body: newPostBody,
+		author: loggedUserData.nickname,
+		likesCount: 0,
+	});
 
-  renderContent();
-  notification(newPostTitle);
+	// window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
+	refreshPostsInLocalStorage();
+	renderContent();
+	notification(newPostTitle);
 }
 
 async function suckFromOutside(url) {
-  const response = await fetch(url);
-  const outsideData = await response.json();
+	const response = await fetch(url);
+	const outsideData = await response.json();
 
-  outsideData.forEach((el) => {
-    posts.push({
-      id: posts.length + 1,
-      title: el.title,
-      body: el.body,
-      likesCount: 0,
-    });
-  });
+	outsideData.forEach((el) => {
+		posts.push({
+			id: posts.length + 1,
+			title: el.title,
+			body: el.body,
+			author: "anonymous",
+			likesCount: 0,
+		});
+	});
 
-  renderContent();
-  const outsideDataButton = document.querySelector("#otside-data");
-  outsideDataButton.disabled = true;
+	renderContent();
+	const outsideDataButton = document.querySelector("#otside-data");
+	outsideDataButton.disabled = true;
 }
 
 function logout() {
-  window.alert("nastąpi wylogowanie");
-  window.location.replace("login.html");
-  window.localStorage.removeItem("currentlyLogged");
+	window.alert("nastąpi wylogowanie");
+	window.location.replace("login.html");
+	window.localStorage.removeItem("currentlyLogged");
 }
+
+function filterByTitle() {}
 
 renderContent();
