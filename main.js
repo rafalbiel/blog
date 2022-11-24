@@ -42,6 +42,7 @@ function renderContent() {
 	rootElement.appendChild(postsContainer);
 
 	// posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
+	refreshPostsOnSceenBasedOnLocalStorage()
 
 	posts.forEach((post, index) => {
 		const singlePost = document.createElement("div");
