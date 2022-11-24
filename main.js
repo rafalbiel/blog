@@ -121,7 +121,7 @@ function addPost(event) {
 		likesCount: 0,
 	});
 
-	// window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
+	window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
 	refreshPostsInLocalStorage();
 	renderContent();
 	notification(newPostTitle);
@@ -140,7 +140,7 @@ async function suckFromOutside(url) {
 			likesCount: 0,
 		});
 	});
-
+  refreshPostsInLocalStorage();
 	renderContent();
 	const outsideDataButton = document.querySelector("#otside-data");
 	outsideDataButton.disabled = true;
