@@ -13,6 +13,7 @@ function loginDataCheck() {
 
   storedUsersList.forEach((element) => {
     if (element.email === emailLoginValue && element.pass === passLoginValue) {
+      console.log(element)
       window.localStorage.setItem("currentlyLogged", JSON.stringify(element));
       window.location.replace("index-reader.html");
 

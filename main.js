@@ -1,15 +1,15 @@
-let posts = [
-	{
-		id: 1,
-		title: "test1",
-		body: "jakiś tekst w poscie 1",
-		author: "anonymous",
-		likesCount: 0,
-	},
-];
+let posts = [];
+
 function refreshPostsInLocalStorage() {
 	window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
 }
+
+function refreshPostsOnSceenBasedOnLocalStorage() {
+	posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
+	if (posts === null) posts = [];
+}
+
+window.onload = (event) => refreshPostsOnSceenBasedOnLocalStorage();
 
 function counterRefresh() {
 	const postCounter = document.querySelector("#post-counter");
@@ -41,7 +41,7 @@ function renderContent() {
 	postsContainer.id = "posts-container";
 	rootElement.appendChild(postsContainer);
 
-	posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
+	// posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
 
 	posts.forEach((post, index) => {
 		const singlePost = document.createElement("div");
@@ -59,6 +59,7 @@ function renderContent() {
 
 		const newPostAuthorElement = document.createElement("p");
 		newPostAuthorElement.innerHTML = "post author: " + post.author;
+		//zrobić find po liście users i sparować id z nickname
 
 		const newPostLikesElement = document.createElement("p");
 		newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
@@ -117,11 +118,10 @@ function addPost(event) {
 		id: newPostId,
 		title: newPostTitle,
 		body: newPostBody,
-		author: loggedUserData.nickname,
+		author: loggedUserData.id,
 		likesCount: 0,
 	});
 
-	window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
 	refreshPostsInLocalStorage();
 	renderContent();
 	notification(newPostTitle);
@@ -140,7 +140,7 @@ async function suckFromOutside(url) {
 			likesCount: 0,
 		});
 	});
-  refreshPostsInLocalStorage();
+	refreshPostsInLocalStorage();
 	renderContent();
 	const outsideDataButton = document.querySelector("#otside-data");
 	outsideDataButton.disabled = true;
