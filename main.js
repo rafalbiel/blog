@@ -59,10 +59,13 @@ function renderContent() {
 
     const newPostAuthorElement = document.createElement("p");
 
-    // const author = element.find(user => element > 10);
+    //zrobić find po liście users i sparować id z nickname
+    //     const listOfAuthors = JSON.parse(window.localStorage.getItem("registratedUsersList"));
+
+    // 	const author = listOfAuthors.find(el => el.id === post.author);
+    // console.log(author)
 
     newPostAuthorElement.innerHTML = "post author: " + post.author;
-    //zrobić find po liście users i sparować id z nickname
 
     const newPostLikesElement = document.createElement("p");
     newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
