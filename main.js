@@ -1,32 +1,32 @@
 let posts = [];
 
 function refreshPostsInLocalStorage() {
-	window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
+  window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
 }
 
 function refreshPostsOnSceenBasedOnLocalStorage() {
-	posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
-	if (posts === null) posts = [];
+  posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
+  if (posts === null) posts = [];
 }
 
 window.onload = (event) => refreshPostsOnSceenBasedOnLocalStorage();
 
 function counterRefresh() {
-	const postCounter = document.querySelector("#post-counter");
-	postCounter.innerHTML = `ilość postów: ${posts.length}`;
+  const postCounter = document.querySelector("#post-counter");
+  postCounter.innerHTML = `ilość postów: ${posts.length}`;
 }
 
 const loggedUserData = JSON.parse(
-	window.localStorage.getItem("currentlyLogged")
+  window.localStorage.getItem("currentlyLogged")
 );
 
 const loggedDisplayer = document.querySelector("#currently-logged");
 loggedDisplayer.innerHTML = `zalogowany: ${loggedUserData.nickname}`;
 
 function notification(newPostTitle) {
-	const divNotificator = document.querySelector("#notification");
-	divNotificator.innerHTML = `dodano nowy post o tytule ${newPostTitle}`;
-	setTimeout(() => (divNotificator.innerHTML = ""), 3000);
+  const divNotificator = document.querySelector("#notification");
+  divNotificator.innerHTML = `dodano nowy post o tytule ${newPostTitle}`;
+  setTimeout(() => (divNotificator.innerHTML = ""), 3000);
 }
 
 const rootElement = document.querySelector("#root");
@@ -35,122 +35,129 @@ const formData = document.createElement("form");
 rootElement.appendChild(formData);
 
 function renderContent() {
-	rootElement.innerHTML = "";
+  rootElement.innerHTML = "";
 
-	const postsContainer = document.createElement("div");
-	postsContainer.id = "posts-container";
-	rootElement.appendChild(postsContainer);
+  const postsContainer = document.createElement("div");
+  postsContainer.id = "posts-container";
+  rootElement.appendChild(postsContainer);
 
-	// posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
-	refreshPostsOnSceenBasedOnLocalStorage()
+  refreshPostsOnSceenBasedOnLocalStorage();
 
-	posts.forEach((post, index) => {
-		const singlePost = document.createElement("div");
-		singlePost.id = `post-${post.id}`;
-		postsContainer.appendChild(singlePost);
+  posts.forEach((post, index) => {
+    const singlePost = document.createElement("div");
+    singlePost.id = `post-${post.id}`;
+    postsContainer.appendChild(singlePost);
 
-		const newPostIdElement = document.createElement("p");
-		newPostIdElement.innerHTML = "post Id: " + post.id;
+    const newPostIdElement = document.createElement("p");
+    newPostIdElement.innerHTML = "post Id: " + post.id;
 
-		const newPostTitleElement = document.createElement("p");
-		newPostTitleElement.innerHTML = "post Title: " + post.title;
+    const newPostTitleElement = document.createElement("p");
+    newPostTitleElement.innerHTML = "post Title: " + post.title;
 
-		const newPostBodyElement = document.createElement("p");
-		newPostBodyElement.innerHTML = "post body: " + post.body;
+    const newPostBodyElement = document.createElement("p");
+    newPostBodyElement.innerHTML = "post body: " + post.body;
 
-		const newPostAuthorElement = document.createElement("p");
-		newPostAuthorElement.innerHTML = "post author: " + post.author;
-		//zrobić find po liście users i sparować id z nickname
+    const newPostAuthorElement = document.createElement("p");
 
-		const newPostLikesElement = document.createElement("p");
-		newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
+    // const author = element.find(user => element > 10);
 
-		const deletePostButton = document.createElement("button");
-		deletePostButton.textContent = "usuń post";
+    newPostAuthorElement.innerHTML = "post author: " + post.author;
+    //zrobić find po liście users i sparować id z nickname
 
-		const addFiveLikesButton = document.createElement("button");
-		addFiveLikesButton.textContent = "Likes +5";
+    const newPostLikesElement = document.createElement("p");
+    newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
 
-		const substractTenLikesButton = document.createElement("button");
-		substractTenLikesButton.textContent = "Likes -10";
+    const deletePostButton = document.createElement("button");
+    deletePostButton.textContent = "usuń post";
 
-		singlePost.appendChild(newPostIdElement);
-		singlePost.appendChild(newPostTitleElement);
-		singlePost.appendChild(newPostBodyElement);
-		singlePost.appendChild(newPostAuthorElement);
-		singlePost.appendChild(newPostLikesElement);
-		singlePost.appendChild(deletePostButton);
-		singlePost.appendChild(addFiveLikesButton);
-		singlePost.appendChild(substractTenLikesButton);
-		counterRefresh();
+    const addFiveLikesButton = document.createElement("button");
+    addFiveLikesButton.textContent = "Likes +5";
 
-		deletePostButton.onclick = () => {
-			posts.splice(index, 1);
-			refreshPostsInLocalStorage();
-			renderContent();
-		};
+    const substractTenLikesButton = document.createElement("button");
+    substractTenLikesButton.textContent = "Likes -10";
 
-		addFiveLikesButton.onclick = () => {
-			posts[index].likesCount += 5;
-			refreshPostsInLocalStorage();
-			renderContent();
-		};
+    singlePost.appendChild(newPostIdElement);
+    singlePost.appendChild(newPostTitleElement);
+    singlePost.appendChild(newPostBodyElement);
+    singlePost.appendChild(newPostAuthorElement);
+    singlePost.appendChild(newPostLikesElement);
+    singlePost.appendChild(deletePostButton);
+    singlePost.appendChild(addFiveLikesButton);
+    singlePost.appendChild(substractTenLikesButton);
+    counterRefresh();
 
-		substractTenLikesButton.onclick = () => {
-			posts[index].likesCount -= 10;
-			refreshPostsInLocalStorage();
-			renderContent();
-		};
-	});
+    deletePostButton.onclick = () => {
+      posts.splice(index, 1);
+      refreshPostsInLocalStorage();
+      renderContent();
+    };
+
+    addFiveLikesButton.onclick = () => {
+      posts[index].likesCount += 5;
+      refreshPostsInLocalStorage();
+      renderContent();
+    };
+
+    substractTenLikesButton.onclick = () => {
+      posts[index].likesCount -= 10;
+      refreshPostsInLocalStorage();
+      renderContent();
+    };
+  });
 }
 
 function addPost(event) {
-	const titleInput = document.querySelector("#post-title");
-	const newPostTitle = titleInput.value;
+  const titleInput = document.querySelector("#post-title");
+  const newPostTitle = titleInput.value;
 
-	const bodyTextArea = document.querySelector("#new-post-body");
-	const newPostBody = bodyTextArea.value;
+  const bodyTextArea = document.querySelector("#new-post-body");
+  const newPostBody = bodyTextArea.value;
 
-	const lastPost = posts.length;
-	const newPostId = lastPost + 1;
-	console.log(newPostId);
+  if (newPostTitle === "" || newPostBody === "") {
+    window.alert("nie wszystkie pola zostały wypełnione");
+    return;
+  }
 
-	posts.push({
-		id: newPostId,
-		title: newPostTitle,
-		body: newPostBody,
-		author: loggedUserData.id,
-		likesCount: 0,
-	});
+  const lastPost = posts.length;
+  const newPostId = lastPost + 1;
+  console.log(newPostId);
 
-	refreshPostsInLocalStorage();
-	renderContent();
-	notification(newPostTitle);
+  posts.push({
+    id: newPostId,
+    title: newPostTitle,
+    body: newPostBody,
+    author: loggedUserData.id,
+    likesCount: 0,
+  });
+
+  refreshPostsInLocalStorage();
+  renderContent();
+  notification(newPostTitle);
 }
 
 async function suckFromOutside(url) {
-	const response = await fetch(url);
-	const outsideData = await response.json();
+  const response = await fetch(url);
+  const outsideData = await response.json();
 
-	outsideData.forEach((el) => {
-		posts.push({
-			id: posts.length + 1,
-			title: el.title,
-			body: el.body,
-			author: "anonymous",
-			likesCount: 0,
-		});
-	});
-	refreshPostsInLocalStorage();
-	renderContent();
-	const outsideDataButton = document.querySelector("#otside-data");
-	outsideDataButton.disabled = true;
+  outsideData.forEach((el) => {
+    posts.push({
+      id: posts.length + 1,
+      title: el.title,
+      body: el.body,
+      author: "anonymous",
+      likesCount: 0,
+    });
+  });
+  refreshPostsInLocalStorage();
+  renderContent();
+  const outsideDataButton = document.querySelector("#otside-data");
+  outsideDataButton.disabled = true;
 }
 
 function logout() {
-	window.alert("nastąpi wylogowanie");
-	window.location.replace("login.html");
-	window.localStorage.removeItem("currentlyLogged");
+  window.alert("nastąpi wylogowanie");
+  window.location.replace("login.html");
+  window.localStorage.removeItem("currentlyLogged");
 }
 
 function filterByTitle() {}
