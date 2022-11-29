@@ -18,10 +18,15 @@ function counterRefresh() {
 
 const loggedUserData = JSON.parse(
   window.localStorage.getItem("currentlyLogged")
-);
+  );
+  
+  const listOfAuthors = JSON.parse(window.localStorage.getItem("registratedUsersList"));
+  
+  const author = listOfAuthors.find(el => el.id === loggedUserData.id);
+  
 
 const loggedDisplayer = document.querySelector("#currently-logged");
-loggedDisplayer.innerHTML = `zalogowany: ${loggedUserData.nickname}`;
+loggedDisplayer.innerHTML = `zalogowany: ${author.nickname}`;
 
 function notification(newPostTitle) {
   const divNotificator = document.querySelector("#notification");
@@ -59,13 +64,19 @@ function renderContent() {
 
     const newPostAuthorElement = document.createElement("p");
 
-    //zrobić find po liście users i sparować id z nickname
-    //     const listOfAuthors = JSON.parse(window.localStorage.getItem("registratedUsersList"));
+    
 
-    // 	const author = listOfAuthors.find(el => el.id === post.author);
-    // console.log(author)
+  //   const listOfAuthors = JSON.parse(window.localStorage.getItem("registratedUsersList"));
+  
+  const postAuthor = listOfAuthors.find(el => el.id === post.author);
+    
+  
+  // const loggedDisplayer = document.querySelector("#currently-logged");
+  // loggedDisplayer.innerHTML = `zalogowany: ${author.nickname}`;
 
-    newPostAuthorElement.innerHTML = "post author: " + post.author;
+
+
+    newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
 
     const newPostLikesElement = document.createElement("p");
     newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
