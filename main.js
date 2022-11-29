@@ -18,12 +18,13 @@ function counterRefresh() {
 
 const loggedUserData = JSON.parse(
   window.localStorage.getItem("currentlyLogged")
-  );
-  
-  const listOfAuthors = JSON.parse(window.localStorage.getItem("registratedUsersList"));
-  
-  const author = listOfAuthors.find(el => el.id === loggedUserData.id);
-  
+);
+
+const listOfAuthors = JSON.parse(
+  window.localStorage.getItem("registratedUsersList")
+);
+
+const author = listOfAuthors.find((el) => el.id === loggedUserData.id);
 
 const loggedDisplayer = document.querySelector("#currently-logged");
 loggedDisplayer.innerHTML = `zalogowany: ${author.nickname}`;
@@ -64,17 +65,7 @@ function renderContent() {
 
     const newPostAuthorElement = document.createElement("p");
 
-    
-
-  //   const listOfAuthors = JSON.parse(window.localStorage.getItem("registratedUsersList"));
-  
-  const postAuthor = listOfAuthors.find(el => el.id === post.author);
-    
-  
-  // const loggedDisplayer = document.querySelector("#currently-logged");
-  // loggedDisplayer.innerHTML = `zalogowany: ${author.nickname}`;
-
-
+    const postAuthor = listOfAuthors.find((el) => el.id === post.author);
 
     newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
 

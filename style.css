@@ -1,13 +1,13 @@
 label {
-	display: block;
-	font: 0.9rem "Fira Sans", sans-serif;
+  display: block;
+  font: 0.9rem "Fira Sans", sans-serif;
 }
 a {
-	display: inline;
-    padding-right: 20px;
+  display: inline;
+  padding-right: 20px;
 }
 
 input[type="submit"],
 label {
-	margin-top: 1rem;
+  margin-top: 1rem;
 }

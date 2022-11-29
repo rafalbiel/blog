@@ -1,65 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			http-equiv="X-UA-Compatible"
-			content="IE=edge"
-		/>
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>Blog</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-			crossorigin="anonymous"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="style-reader.css"
-		/>
-	</head>
-	<body>
-		<div id="root"></div>
-		<!-- <div id="newPost">
+    <title>Blog</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="style-reader.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- <div id="newPost">
 		 <form action="submit"> -->
 
-		<div id="stopka">
-			<input
-				id="post-title"
-				type="text"
-				placeholder="tytuł"
-			/>
-			<button onclick="addPost()">dodaj post</button>
-			<button onclick="logout()">Log out</button>
-			<button
-				id="otside-data"
-				onclick="suckFromOutside('https://jsonplaceholder.typicode.com/posts?userId=1')"
-			>
-				dane z zewnątrz
-			</button>
-			
-			<label id="post-counter">tekst</label>
-			<textarea
-				name="newPostTextArea"
-				id="new-post-body"
-				cols="60"
-				rows="3"
-			></textarea>
+    <div id="stopka">
+      <input id="post-title" type="text" placeholder="tytuł" />
+      <button onclick="addPost()">dodaj post</button>
+      <button onclick="logout()">Log out</button>
+      <button
+        id="otside-data"
+        onclick="suckFromOutside('https://jsonplaceholder.typicode.com/posts?userId=1')"
+      >
+        dane z zewnątrz
+      </button>
 
-			<label id="currently-logged">tekst</label>
+      <label id="post-counter">tekst</label>
+      <textarea
+        name="newPostTextArea"
+        id="new-post-body"
+        cols="60"
+        rows="3"
+      ></textarea>
 
-			<div id="notification"></div>
-		</div>
+      <label id="currently-logged">tekst</label>
 
-		<script src="main.js"></script>
-	</body>
+      <div id="notification"></div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
 </html>
