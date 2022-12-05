@@ -4,12 +4,12 @@ function refreshPostsInLocalStorage() {
 	window.localStorage.setItem("postsInLocalStorage", JSON.stringify(posts));
 }
 
-function refreshPostsOnSceenBasedOnLocalStorage() {
+function refreshPostsOnScreenBasedOnLocalStorage() {
 	posts = JSON.parse(window.localStorage.getItem("postsInLocalStorage"));
 	if (posts === null) posts = [];
 }
 
-window.onload = (event) => refreshPostsOnSceenBasedOnLocalStorage();
+window.onload = (event) => refreshPostsOnScreenBasedOnLocalStorage();
 
 function counterRefresh() {
 	const postCounter = document.querySelector("#post-counter");
@@ -47,49 +47,61 @@ function renderContent() {
 	postsContainer.id = "posts-container";
 	rootElement.appendChild(postsContainer);
 
-	refreshPostsOnSceenBasedOnLocalStorage();
+	refreshPostsOnScreenBasedOnLocalStorage();
 
+
+	// posts.forEach((element) => {
+	// 	if (element.title.includes(filterInput.value) || filterInput.value === "")
+
+	const filterInput = document.querySelector("#filter");
+	console.log(filterInput.value)
 	posts.forEach((post, index) => {
-		const singlePost = document.createElement("div");
-		singlePost.id = `post-${post.id}`;
-		postsContainer.appendChild(singlePost);
 
-		const newPostIdElement = document.createElement("p");
-		newPostIdElement.innerHTML = "post Id: " + post.id;
+		if (post.title.includes(filterInput.value) || filterInput.value === ""){
 
-		const newPostTitleElement = document.createElement("p");
-		newPostTitleElement.innerHTML = "post Title: " + post.title;
 
-		const newPostBodyElement = document.createElement("p");
-		newPostBodyElement.innerHTML = "post body: " + post.body;
 
-		const newPostAuthorElement = document.createElement("p");
-
-		const postAuthor = listOfAuthors.find((el) => el.id === post.author);
-
-		newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
-
-		const newPostLikesElement = document.createElement("p");
-		newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
-
-		const deletePostButton = document.createElement("button");
-		deletePostButton.textContent = "usuń post";
-
-		const addFiveLikesButton = document.createElement("button");
-		addFiveLikesButton.textContent = "Likes +5";
-
-		const substractTenLikesButton = document.createElement("button");
-		substractTenLikesButton.textContent = "Likes -10";
-
-		singlePost.appendChild(newPostIdElement);
-		singlePost.appendChild(newPostTitleElement);
-		singlePost.appendChild(newPostBodyElement);
-		singlePost.appendChild(newPostAuthorElement);
-		singlePost.appendChild(newPostLikesElement);
-		singlePost.appendChild(deletePostButton);
-		singlePost.appendChild(addFiveLikesButton);
-		singlePost.appendChild(substractTenLikesButton);
-		counterRefresh();
+			const singlePost = document.createElement("div");
+			singlePost.id = `post-${post.id}`;
+			postsContainer.appendChild(singlePost);
+	
+			const newPostIdElement = document.createElement("p");
+			newPostIdElement.innerHTML = "post Id: " + post.id;
+	
+			const newPostTitleElement = document.createElement("p");
+			newPostTitleElement.innerHTML = "post Title: " + post.title;
+	
+			const newPostBodyElement = document.createElement("p");
+			newPostBodyElement.innerHTML = "post body: " + post.body;
+	
+			const newPostAuthorElement = document.createElement("p");
+	
+			const postAuthor = listOfAuthors.find((el) => el.id === post.author);
+	
+			newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
+	
+			const newPostLikesElement = document.createElement("p");
+			newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
+	
+			const deletePostButton = document.createElement("button");
+			deletePostButton.textContent = "usuń post";
+	
+			const addFiveLikesButton = document.createElement("button");
+			addFiveLikesButton.textContent = "Likes +5";
+	
+			const substractTenLikesButton = document.createElement("button");
+			substractTenLikesButton.textContent = "Likes -10";
+	
+			singlePost.appendChild(newPostIdElement);
+			singlePost.appendChild(newPostTitleElement);
+			singlePost.appendChild(newPostBodyElement);
+			singlePost.appendChild(newPostAuthorElement);
+			singlePost.appendChild(newPostLikesElement);
+			singlePost.appendChild(deletePostButton);
+			singlePost.appendChild(addFiveLikesButton);
+			singlePost.appendChild(substractTenLikesButton);
+			counterRefresh();
+		
 
 		deletePostButton.onclick = () => {
 			posts.splice(index, 1);
@@ -115,8 +127,10 @@ function renderContent() {
 				refreshPostsInLocalStorage();
 				renderContent();
 			}
+			}
 		};
 	});
+
 }
 
 function addPost(event) {
@@ -173,6 +187,8 @@ function logout() {
 	window.localStorage.removeItem("currentlyLogged");
 }
 
-function filterByTitle() {}
+function filterByTitle() {
+renderContent()
+}
 
 renderContent();
