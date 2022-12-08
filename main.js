@@ -49,49 +49,40 @@ function renderContent() {
 
 	refreshPostsOnScreenBasedOnLocalStorage();
 
-
-	// posts.forEach((element) => {
-	// 	if (element.title.includes(filterInput.value) || filterInput.value === "")
-
 	const filterInput = document.querySelector("#filter");
-	console.log(filterInput.value)
 	posts.forEach((post, index) => {
-
-		if (post.title.includes(filterInput.value) || filterInput.value === ""){
-
-
-
+		if (post.title.includes(filterInput.value) || filterInput.value === "") {
 			const singlePost = document.createElement("div");
 			singlePost.id = `post-${post.id}`;
 			postsContainer.appendChild(singlePost);
-	
+
 			const newPostIdElement = document.createElement("p");
 			newPostIdElement.innerHTML = "post Id: " + post.id;
-	
+
 			const newPostTitleElement = document.createElement("p");
 			newPostTitleElement.innerHTML = "post Title: " + post.title;
-	
+
 			const newPostBodyElement = document.createElement("p");
 			newPostBodyElement.innerHTML = "post body: " + post.body;
-	
+
 			const newPostAuthorElement = document.createElement("p");
-	
+
 			const postAuthor = listOfAuthors.find((el) => el.id === post.author);
-	
+
 			newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
-	
+
 			const newPostLikesElement = document.createElement("p");
 			newPostLikesElement.innerHTML = "post Likes: " + post.likesCount;
-	
+
 			const deletePostButton = document.createElement("button");
 			deletePostButton.textContent = "usuń post";
-	
+
 			const addFiveLikesButton = document.createElement("button");
 			addFiveLikesButton.textContent = "Likes +5";
-	
+
 			const substractTenLikesButton = document.createElement("button");
 			substractTenLikesButton.textContent = "Likes -10";
-	
+
 			singlePost.appendChild(newPostIdElement);
 			singlePost.appendChild(newPostTitleElement);
 			singlePost.appendChild(newPostBodyElement);
@@ -101,36 +92,34 @@ function renderContent() {
 			singlePost.appendChild(addFiveLikesButton);
 			singlePost.appendChild(substractTenLikesButton);
 			counterRefresh();
-		
 
-		deletePostButton.onclick = () => {
-			posts.splice(index, 1);
-			refreshPostsInLocalStorage();
-			renderContent();
-		};
-
-		addFiveLikesButton.onclick = () => {
-			if (author.nickname === postAuthor.nickname) {
-				alert("nie możesz lajkować własnych postów");
-			} else {
-				posts[index].likesCount += 5;
+			deletePostButton.onclick = () => {
+				posts.splice(index, 1);
 				refreshPostsInLocalStorage();
 				renderContent();
-			}
-		};
+			};
 
-		substractTenLikesButton.onclick = () => {
-			if (author.nickname === postAuthor.nickname) {
-				alert("nie możesz lajkować własnych postów");
-			} else {
-				posts[index].likesCount -= 10;
-				refreshPostsInLocalStorage();
-				renderContent();
-			}
-			}
-		};
+			addFiveLikesButton.onclick = () => {
+				if (author.nickname === postAuthor.nickname) {
+					alert("nie możesz lajkować własnych postów");
+				} else {
+					posts[index].likesCount += 5;
+					refreshPostsInLocalStorage();
+					renderContent();
+				}
+			};
+
+			substractTenLikesButton.onclick = () => {
+				if (author.nickname === postAuthor.nickname) {
+					alert("nie możesz lajkować własnych postów");
+				} else {
+					posts[index].likesCount -= 10;
+					refreshPostsInLocalStorage();
+					renderContent();
+				}
+			};
+		}
 	});
-
 }
 
 function addPost(event) {
@@ -188,7 +177,8 @@ function logout() {
 }
 
 function filterByTitle() {
-renderContent()
+	setTimeout(() => (renderContent()), 1000);
+	
 }
 
 renderContent();
