@@ -16,6 +16,13 @@ function counterRefresh() {
   postCounter.innerHTML = `ilość postów: ${posts.length}`;
 }
 
+let isMyPostsChecked = document.querySelector("#my-posts");
+
+console.log(isMyPostsChecked.checked);
+isMyPostsChecked.onclick = (event) => {
+  console.log(event.target.checked);
+};
+
 const loggedUserData = JSON.parse(
   window.localStorage.getItem("currentlyLogged")
 );
@@ -69,8 +76,6 @@ function renderContent() {
 
       const postAuthor = listOfAuthors.find((el) => el.id === post.author);
 
-      // newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
-
       if (postAuthor) {
         newPostAuthorElement.innerHTML = "post author: " + postAuthor.nickname;
       } else {
@@ -106,12 +111,15 @@ function renderContent() {
       };
 
       addFiveLikesButton.onclick = () => {
-        if (author.nickname === postAuthor.nickname) {
-          alert("nie możesz lajkować własnych postów");
-        } else {
-          posts[index].likesCount += 5;
-          refreshPostsInLocalStorage();
-          renderContent();
+        console.log(author);
+        if (author === "anonymous") {
+          if (author.nickname === postAuthor.nickname) {
+            alert("nie możesz lajkować własnych postów");
+          } else {
+            posts[index].likesCount += 5;
+            refreshPostsInLocalStorage();
+            renderContent();
+          }
         }
       };
 
@@ -172,7 +180,7 @@ async function suckFromOutside(url) {
   });
   refreshPostsInLocalStorage();
   renderContent();
-  //refreshPostsOnScreenBasedOnLocalStorage();
+  refreshPostsOnScreenBasedOnLocalStorage();
   const outsideDataButton = document.querySelector("#outside-data");
   outsideDataButton.disabled = true;
 }
