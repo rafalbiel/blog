@@ -58,7 +58,7 @@ function renderContent() {
 
   const filterInput = document.querySelector("#filter");
   posts.forEach((post, index) => {
-    if (post.title.includes(filterInput.value) || filterInput.value === "") {
+    if (post.title.startsWith(filterInput.value) || filterInput.value === "") {
       const singlePost = document.createElement("div");
       singlePost.id = `post-${post.id}`;
       postsContainer.appendChild(singlePost);
@@ -111,19 +111,29 @@ function renderContent() {
       };
 
       addFiveLikesButton.onclick = () => {
-        console.log(author);
-        if (author === "anonymous") {
-          if (author.nickname === postAuthor.nickname) {
-            alert("nie możesz lajkować własnych postów");
-          } else {
-            posts[index].likesCount += 5;
-            refreshPostsInLocalStorage();
-            renderContent();
-          }
+        if (post.author === "anonymous") {
+          posts[index].likesCount += 5;
+          refreshPostsInLocalStorage();
+          renderContent();
+          return;
+        }
+        if (author.nickname === postAuthor.nickname) {
+          alert("nie możesz lajkować własnych postów");
+        } else {
+          posts[index].likesCount += 5;
+          refreshPostsInLocalStorage();
+          renderContent();
         }
       };
 
       substractTenLikesButton.onclick = () => {
+        if (post.author === "anonymous") {
+          posts[index].likesCount -= 10;
+          refreshPostsInLocalStorage();
+          renderContent();
+          return;
+        }
+
         if (author.nickname === postAuthor.nickname) {
           alert("nie możesz lajkować własnych postów");
         } else {
