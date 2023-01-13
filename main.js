@@ -52,19 +52,20 @@ function renderContent() {
   let isMyPostsChecked = document.querySelector("#my-posts");
 
   isMyPostsChecked.onclick = (event) => {
-    event.target.checked;
+    renderContent();
   };
 
   const filterInput = document.querySelector("#filter");
 
   posts.forEach((post, index) => {
     const postAuthor = listOfAuthors.find((el) => el.id === post.author);
-    // if (isMyPostsChecked) {
-    //   const isCurrentUserPost = author.id === postAuthor;
-    //   if (!isCurrentUserPost) {
-    //     return;
-    //   }
-
+    console.log(isMyPostsChecked, isMyPostsChecked.checked);
+    if (isMyPostsChecked.checked) {
+      const isCurrentUserPost = post.author === loggedUserData.id;
+      if (!isCurrentUserPost) {
+        return;
+      }
+    }
     if (post.title.startsWith(filterInput.value) || filterInput.value === "") {
       const singlePost = document.createElement("div");
       singlePost.id = `post-${post.id}`;
@@ -148,7 +149,6 @@ function renderContent() {
         }
       };
     }
-    // }
   });
 }
 
