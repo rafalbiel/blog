@@ -1,0 +1,16 @@
+body{
+    display: flex;
+    
+}
+.nickname{
+    display: flex;
+    flex-direction: column;
+}
+.avatar{
+    padding-left: 10px;
+}
+.avatar-placeholder{
+    width: 200px;
+    height: 200px;
+    border: 1px solid black ;
+}

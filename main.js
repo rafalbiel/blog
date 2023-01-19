@@ -28,6 +28,9 @@ const author = listOfAuthors.find((el) => el.id === loggedUserData.id);
 
 const loggedDisplayer = document.querySelector("#currently-logged");
 loggedDisplayer.innerHTML = `zalogowany: ${author.nickname}`;
+loggedDisplayer.onclick = () => {
+  window.location.replace("modal-author-dossier.html");
+};
 
 function notification(newPostTitle) {
   const divNotificator = document.querySelector("#notification");
@@ -59,7 +62,7 @@ function renderContent() {
 
   posts.forEach((post, index) => {
     const postAuthor = listOfAuthors.find((el) => el.id === post.author);
-    console.log(isMyPostsChecked, isMyPostsChecked.checked);
+
     if (isMyPostsChecked.checked) {
       const isCurrentUserPost = post.author === loggedUserData.id;
       if (!isCurrentUserPost) {
