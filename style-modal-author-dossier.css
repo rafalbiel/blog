@@ -1,16 +1,36 @@
-body{
-    display: flex;
-    
+body {
+  display: flex;
 }
-.nickname{
-    display: flex;
-    flex-direction: column;
+.nickname {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+  align-items: center;
 }
-.avatar{
-    padding-left: 10px;
+.nickname-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100px;
 }
-.avatar-placeholder{
-    width: 200px;
-    height: 200px;
-    border: 1px solid black ;
+.nickname-change-btn {
+  cursor: pointer;
+  width: 100px;
+}
+.avatar {
+  padding-left: 10px;
+}
+.avatar-placeholder {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+.delete-avatar-btn {
+  text-decoration: underline;
+  border: 0px;
+  background: none;
+  cursor: pointer;
+}
+.change-avatar-btn {
+  cursor: pointer;
 }
